@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,11 +10,18 @@ namespace Philosopher
         void WriteLine(string s);
     }
 
-    public class ConsoleOutputter : IOutputter
+
+    public class JsonOutputter : IOutputter
     {
+        private JArray array = new JArray();
         public void WriteLine(string s)
         {
-            Console.WriteLine(s);
+            array.Add(new JValue(s));
+        }
+
+        public string GetJSON()
+        {
+            return array.ToString();
         }
     }
 }
