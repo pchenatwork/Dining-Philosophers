@@ -5,9 +5,9 @@ using System.Text;
 
 namespace ConsoleRunner
 {
-    class ConsoleOutputter : IOutputter
+    class ConsoleOutputter : AbstractOutputter
     {
-        public void WriteLine(string s)
+        protected override void _WriteLine(string s)
         {
             Console.WriteLine(s);
         }

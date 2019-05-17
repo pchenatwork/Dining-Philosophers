@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Philosopher;
 
 namespace AngularRunner.Controllers
 {
@@ -40,5 +42,30 @@ namespace AngularRunner.Controllers
                 }
             }
         }
+
+
+        [HttpGet("[action]")]
+        public IEnumerable<string> GetDiningPhilosophers()
+        {
+            IOutputter outputter = new EnumerableStringOutputter();
+            DiningPhilosopher.Start(5, 2, outputter);
+            return ((EnumerableStringOutputter)outputter).Dump();
+        }
+
+        internal class EnumerableStringOutputter : AbstractOutputter
+        {
+            private Collection<string> _o = new Collection<string>();
+
+            public IEnumerable<string> Dump()
+            {
+                return _o;
+            }
+
+            protected override void _WriteLine(string s)
+            {
+                _o.Add(s);
+            }
+        }
+
     }
 }

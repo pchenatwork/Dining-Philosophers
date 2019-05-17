@@ -5,10 +5,6 @@ using System.Threading;
 
 namespace Philosopher
 {
-    public interface IUtencil
-    {
-        int Id { get; }
-    }
     public class Chopstick : IUtencil
     {
         private int _id;

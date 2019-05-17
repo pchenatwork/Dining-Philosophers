@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace Philosopher
 {
-    public interface IPhilosopher
-    {
-        int Id { get; }
-        void Eat(IUtencil leftChopstick, IUtencil rightChopstick, int EatingMinutes);
-        void EatAndThink(IUtencil leftChopstick, IUtencil rightChopstick, int eatSec, int thinkSec, int times);
-    }
+
     public class Philosopher : IPhilosopher
     {
         private int _id;
@@ -30,31 +25,31 @@ namespace Philosopher
                 lock (rightChopstick)           // Grab utencil on the right
                 {
                     // Eat here
-                    _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF")} P[{_id}] + ({leftChopstick.Id})({rightChopstick.Id}) chopstick and start to eat for { secs} secounds...");
+                    _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF").PadRight(13, '0')} : P[{_id}] + ({leftChopstick.Id})({rightChopstick.Id}) chopstick and start to eat for { secs} secounds...");
                     Thread.Sleep(secs * 1000);
-                    _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF")} P[{_id}] end eating.");
+                    _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF").PadRight(13, '0')} : P[{_id}] end eating.");
                 }
             }
-            _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF")} P[{_id}] - ({leftChopstick.Id})({rightChopstick.Id}) chopstick.");
+            _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF").PadRight(13, '0')} : P[{_id}] - ({leftChopstick.Id})({rightChopstick.Id}) chopstick.");
         }
 
         private void Think(int secs)
         {
-            _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF")} P[{_id}] start thinking for {secs} secounds...");
+            _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF").PadRight(13, '0')} : P[{_id}] start thinking for {secs} secounds...");
             ///Task.Delay(secs * 1000);
             Thread.Sleep(secs * 1000);
-            _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF")} P[{_id}] end thinking.");
+            _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF").PadRight(13, '0')} : P[{_id}] end thinking.");
         }
 
         public void EatAndThink(IUtencil leftChopstick, IUtencil rightChopstick, int eatSec, int thinkSec, int times)
         {
-            _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF")} P[{_id}] will do Eat-n-Think {times} times. Think for {thinkSec} and eat for {eatSec}...");
-            for (int i = 1; i<times; i++)
+            _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF").PadRight(13, '0')} : P[{_id}] will do Eat-n-Think {times} times. Think for {thinkSec} secs and eat for {eatSec} secs ...");
+            for (int i = 0; i<times; i++)
             {
                 Eat(leftChopstick, rightChopstick, eatSec);
                 Think(thinkSec);
             }
-            _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF")} P[{_id}] finish eat and think!!!");
+            _writer.WriteLine($"{DateTime.Now.ToString("hh:mm:ss.FFFF").PadRight(13, '0')} : P[{_id}] finish eat and think!!!");
         }
 
     }
