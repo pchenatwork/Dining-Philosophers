@@ -61,7 +61,7 @@ namespace Philosopher
             return Activator.CreateInstance(typeof(Philosopher),
                 BindingFlags.NonPublic | BindingFlags.Instance, null,
                     args, null) as IPhilosopher;
-        }
+        } 
     }
 
     public class DiningPhilosopher
